@@ -1,14 +1,20 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "UTexture.h"
+#include "Block.h"
+#include <vector>
 
-using namespace sf;
 class World {
 public:
 	World() {
-		ground.setFillColor(Color::Green);
-		ground.setSize(Vector2f(800, 30));
-		ground.setPosition(0, 570);
+		level.loadFromFile("textures/level.png");
+		loadWorld();
 	}
-	void drawWorld(RenderWindow &window);
-	RectangleShape ground;
+	void loadWorld();
+	void updateWorld(bool moved, bool right);
+	void drawWorld(sf::RenderWindow &window);
+	std::vector<Block> blocks;
+	UTexture tex;
+	int amount = 1;
+	sf::Image level;
 };

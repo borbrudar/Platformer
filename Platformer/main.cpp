@@ -10,13 +10,23 @@ int main() {
 	Event e;
 
 	World world;
-
+	bool moved = 0, right = 0;
 	//game loop
 	while (window.isOpen()) {
 		while (window.pollEvent(e)) {
+			moved = 0;
 			if (e.type == Event::Closed) window.close();
+			if (Keyboard::isKeyPressed(Keyboard::Escape)) window.close();
+			if (Keyboard::isKeyPressed(Keyboard::Left)) {
+				moved = 1; right = 0;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+				moved = 1; right = 1;
+			}
 		}
 
+		world.updateWorld(moved, right);
+		
 		window.clear(Color(128,128,128));
 		world.drawWorld(window);
 		window.display();
