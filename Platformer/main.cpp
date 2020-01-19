@@ -14,9 +14,10 @@ int main() {
 	//game loop
 	while (window.isOpen()) {
 		while (window.pollEvent(e)) {
-			moved = 0;
 			if (e.type == Event::Closed) window.close();
 			if (Keyboard::isKeyPressed(Keyboard::Escape)) window.close();
+
+			moved = 0;
 			if (Keyboard::isKeyPressed(Keyboard::Left)) {
 				moved = 1; right = 0;
 			}

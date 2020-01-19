@@ -1,10 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class UTexture {
 public:
 	UTexture() {
-		texture.loadFromFile("textures/stone.jpg");
+		texture.resize(2);
+		texture[0].loadFromFile("textures/stone.png");
+		texture[1].loadFromFile("textures/dirt.png");
 	}
-	sf::Texture texture;
+	std::vector<sf::Texture> texture;
 };

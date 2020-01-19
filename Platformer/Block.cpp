@@ -1,11 +1,9 @@
 #include "Block.h"
 
-void Block::updateBlock(bool moved, bool right, int amount)
+void Block::updateBlock(bool right, int amount)
 {
-	if (moved) {
-		if (right) shape.move(Vector2f(-amount, 0));
-		else shape.move(Vector2f(amount, 0));
-	}
+	if (right) shape.move(Vector2f(-amount, 0));
+	else shape.move(Vector2f(amount, 0));
 }
 
 void Block::loadBlock(Texture & t)
