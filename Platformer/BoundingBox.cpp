@@ -1,5 +1,11 @@
 #include "BoundingBox.h"
 
+void BoundingBox::updateBox(int right, int amount)
+{
+	if (right == 1) pos.x += amount;
+	else if (right == 2) pos.x += -amount;
+}
+
 void BoundingBox::setBox(int width, int height)
 {
 	this->width = width;
@@ -18,9 +24,9 @@ bool BoundingBox::checkCollision(BoundingBox box)
 	if ((pos.x < (box.pos.x + width)) && ((pos.x + width) > (box.pos.x)) && (pos.y < (box.pos.y + height)) && ((pos.y + height) > (box.pos.y))) col = true;
 
 	if (col) {
-		pos.x = box.pos.x - width;
-		pos.y = box.pos.y - height;
+		//pos.x += abs(box.pos.x - pos.x);
+		//pos.y -= (box.pos.y - pos.y);
 	}
-
+	
 	return col;
 }

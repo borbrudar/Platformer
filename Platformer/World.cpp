@@ -22,11 +22,15 @@ void World::loadWorld()
 	}
 }
 
-void World::updateWorld(bool moved, bool right)
+void World::updateWorld(int moved)
 {
 	player.updatePlayer(boxes);
-	if (moved) {
-		for (int i = 0; i < blocks.size(); i++) blocks[i].updateBlock(right, amount);
+
+	if (moved != 0) {
+		for (int i = 0; i < blocks.size(); i++) {
+			blocks[i].updateBlock(moved, amount);
+			boxes[i].updateBox(moved, amount);
+		}
 	}
 }
 

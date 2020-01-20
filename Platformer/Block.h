@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "BoundingBox.h"
 
 enum class type {
 	stone,
@@ -11,8 +12,9 @@ class Block {
 public:
 	Block() {
 		shape.setSize(Vector2f(20, 20));
+
 	}
-	void updateBlock(bool right, int amount);
+	void updateBlock(int dir, int amount);
 	void loadBlock(Texture &t);
 	void setPosition(int x, int y);
 	void drawBlock(RenderWindow &window);

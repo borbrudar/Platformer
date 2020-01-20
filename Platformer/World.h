@@ -12,7 +12,7 @@ public:
 		loadWorld();
 	}
 //functions
-	void updateWorld(bool moved, bool right);
+	void updateWorld(int moved);
 	void drawWorld(sf::RenderWindow &window);
 private:
 	void loadWorld();
