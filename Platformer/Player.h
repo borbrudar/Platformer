@@ -12,7 +12,7 @@ public:
 		box.setPosition(60, 500);
 		box.setBox(size, size);
 	}
-	void updatePlayer(std::vector<BoundingBox> boxes);
+	void updatePlayer(std::vector<BoundingBox> boxes, bool jumped);
 	void drawPlayer(RenderWindow &window);
 	RectangleShape shape;
 	int size = 20;

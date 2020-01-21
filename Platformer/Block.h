@@ -14,7 +14,7 @@ public:
 		shape.setSize(Vector2f(20, 20));
 
 	}
-	void updateBlock(int dir, int amount);
+	void updateBlock(bool right, bool left, int amount);
 	void loadBlock(Texture &t);
 	void setPosition(int x, int y);
 	void drawBlock(RenderWindow &window);

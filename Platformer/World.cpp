@@ -22,16 +22,15 @@ void World::loadWorld()
 	}
 }
 
-void World::updateWorld(int moved)
+void World::updateWorld(bool right, bool left, bool up)
 {
-	player.updatePlayer(boxes);
+	player.updatePlayer(boxes, up);
 
-	if (moved != 0) {
-		for (int i = 0; i < blocks.size(); i++) {
-			blocks[i].updateBlock(moved, amount);
-			boxes[i].updateBox(moved, amount);
-		}
+	for (int i = 0; i < blocks.size(); i++) {
+		blocks[i].updateBlock(right, left, amount);
+		boxes[i].updateBox(right, left, amount);
 	}
+
 }
 
 void World::drawWorld(sf::RenderWindow & window)

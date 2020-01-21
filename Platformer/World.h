@@ -12,7 +12,7 @@ public:
 		loadWorld();
 	}
 //functions
-	void updateWorld(int moved);
+	void updateWorld(bool right, bool left, bool up);
 	void drawWorld(sf::RenderWindow &window);
 private:
 	void loadWorld();
@@ -21,6 +21,6 @@ private:
 	std::vector<Block> blocks;
 	std::vector<BoundingBox> boxes;
 	UTexture tex;
-	int amount = 1;
+	int amount = 1.5;
 	sf::Image level;
 };

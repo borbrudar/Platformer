@@ -10,17 +10,27 @@ int main() {
 	Event e;
 
 	World world;
+	bool right = 0, left = 0, up = 0;
 	//game loop
 	while (window.isOpen()) {
-		int moved = 0;
+		
 		while (window.pollEvent(e)) {
 			if (e.type == Event::Closed) window.close();
 			if (Keyboard::isKeyPressed(Keyboard::Escape)) window.close();
-			if (Keyboard::isKeyPressed(Keyboard::Left)) moved = 1;
-			if (Keyboard::isKeyPressed(Keyboard::Right)) moved = 2;
+
+			if (e.type == Event::KeyPressed) {
+				if (e.key.code == Keyboard::Left)  right = 1;
+				if (e.key.code == Keyboard::Right) left = 1;
+				if (e.key.code == Keyboard::Space) up = 1;
+			}
+			if (e.type == Event::KeyReleased) {
+				if (e.key.code == Keyboard::Left)  right = 0;
+				if (e.key.code == Keyboard::Right) left = 0;
+				if (e.key.code == Keyboard::Space) up = 0;
+			}
 		}
 
-		world.updateWorld(moved);
+		world.updateWorld(right, left, up);
 		
 		window.clear(Color(128,128,128));
 		world.drawWorld(window);
