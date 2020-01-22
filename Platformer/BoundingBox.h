@@ -7,7 +7,7 @@ public:
 	void updateBox(bool right, bool left, int amount);
 	void setBox(int width, int height);
 	void setPosition(int x, int y);
-	bool checkCollision(BoundingBox box);
+	int checkCollision(BoundingBox box);
 	Vector2f pos;
 	int width, height;
 };

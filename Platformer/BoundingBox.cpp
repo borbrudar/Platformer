@@ -18,14 +18,20 @@ void BoundingBox::setPosition(int x, int y)
 	pos.y = y;
 }
 
-bool BoundingBox::checkCollision(BoundingBox box)
+int BoundingBox::checkCollision(BoundingBox box)
 {
-	bool col = 0;
-	if ((pos.x < (box.pos.x + width)) && ((pos.x + width) > (box.pos.x)) && (pos.y < (box.pos.y + height)) && ((pos.y + height) > (box.pos.y))) col = true;
+	int col = 0;
+	if ((pos.x < (box.pos.x + width)) && ((pos.x + width) > (box.pos.x)) && (pos.y < (box.pos.y + height)) && ((pos.y + height) > (box.pos.y))) col = 1;
 
+	//update position (move later)
 	if (col) {
-		//pos.x += abs(box.pos.x - pos.x);
-		pos.y -= pos.y - box.pos.y + width;
+		if (pos.y >= box.pos.y) {
+			if (pos.x <= box.pos.x) col = 2;
+			else col = 3;
+		}
+		else {
+			pos.y -= pos.y - box.pos.y + width;
+		}
 	}
 	
 	return col;

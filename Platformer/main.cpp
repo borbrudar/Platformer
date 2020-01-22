@@ -19,14 +19,14 @@ int main() {
 			if (Keyboard::isKeyPressed(Keyboard::Escape)) window.close();
 
 			if (e.type == Event::KeyPressed) {
-				if (e.key.code == Keyboard::Left)  right = 1;
+				if (e.key.code == Keyboard::Left) right = 1;
 				if (e.key.code == Keyboard::Right) left = 1;
-				if (e.key.code == Keyboard::Space) up = 1;
+				if ((e.key.code == Keyboard::Space) || (e.key.code == Keyboard::Up)) up = 1;
 			}
 			if (e.type == Event::KeyReleased) {
 				if (e.key.code == Keyboard::Left)  right = 0;
 				if (e.key.code == Keyboard::Right) left = 0;
-				if (e.key.code == Keyboard::Space) up = 0;
+				if ((e.key.code == Keyboard::Space) || (e.key.code == Keyboard::Up)) up = 0;
 			}
 		}
 
