@@ -5,9 +5,10 @@
 class UTexture {
 public:
 	UTexture() {
-		texture.resize(2);
+		texture.resize(3);
 		texture[0].loadFromFile("textures/stone.png");
 		texture[1].loadFromFile("textures/dirt.png");
+		texture[2].loadFromFile("textures/enemy.png");
 	}
 	std::vector<sf::Texture> texture;
 };
