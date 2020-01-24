@@ -10,10 +10,12 @@ enum class type {
 using namespace sf;
 class Block {
 public:
+	Block(int x, int y, int size);
 	void updateBlock(bool right, bool left, int amount);
 	void loadBlock(Texture &t);
 	void setPosition(int x, int y);
 	void drawBlock(RenderWindow &window);
+	BoundingBox box;
 	Sprite sprite;
 	type type = type::stone;
 };

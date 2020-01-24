@@ -28,24 +28,23 @@ void World::loadWorld()
 
 void World::addBlock(int x, int y)
 {
-	blocks.push_back(Block());
+	blocks.push_back(Block(x,y,size));
 	blocks[blocks.size() - 1].setPosition(x * size, y * size);
-	boxes.push_back(BoundingBox());
-	boxes[boxes.size() - 1].setPosition(x * size, y * size);
-	boxes[boxes.size() - 1].setBox(size, size);
 }
 
 void World::addEnemy(int x, int y)
 {
-	enemies.push_back(Enemy());
+	enemies.push_back(Enemy(x,y,size));
 	enemies[enemies.size() - 1].setPosition(x * size, y * size);
-	//boxes.push_back(BoundingBox());
-	//boxes[boxes.size() - 1].setPosition(x * size, y * size);
-	//boxes[boxes.size() - 1].setBox(size, size);
 }
 
 void World::updateWorld(bool right, bool left, bool up)
 {
+	boxes.clear();
+	boxes.resize(blocks.size() + enemies.size());
+	for (int i = 0; i < blocks.size(); i++) boxes.push_back(blocks[i].box);
+	for (int i = 0; i < enemies.size(); i++) boxes.push_back(enemies[i].box);
+
 	int type = player.updatePlayer(boxes, up);
 
 	//block if in the way
@@ -57,11 +56,8 @@ void World::updateWorld(bool right, bool left, bool up)
 	
 	
 	//update blocks
-	for (int i = 0; i < blocks.size(); i++) {
-		blocks[i].updateBlock(right, left, amount);
-		boxes[i].updateBox(right, left, amount);
-	}
-	
+	for (int i = 0; i < blocks.size(); i++) blocks[i].updateBlock(right, left, amount);
+	for (int i = 0; i < enemies.size(); i++) enemies[i].updateEnemy(right, left, amount);
 }
 
 void World::drawWorld(sf::RenderWindow & window)
