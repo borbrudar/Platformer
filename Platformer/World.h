@@ -18,6 +18,7 @@ public:
 private:
 	void loadWorld();
 	void addBlock(int x, int y);
+	void addPlayer(int x, int y);
 	void addEnemy(int x, int y);
 //variables	
 	Player player;

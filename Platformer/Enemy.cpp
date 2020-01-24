@@ -6,12 +6,11 @@ Enemy::Enemy(int x, int y, int size)
 	box.setBox(size, size);
 }
 
-void Enemy::updateEnemy(bool right, bool left, int amount)
+void Enemy::updateEnemy(int amount)
 {
 	if (right) sprite.move(Vector2f(amount,0));
 	else if (left) sprite.move(Vector2f(-amount, 0));
 
-	sprite.move(-0.3f, 0);
 	box.pos.x -= 0.3f;
 
 	box.updateBox(right, left, amount);
@@ -19,6 +18,7 @@ void Enemy::updateEnemy(bool right, bool left, int amount)
 
 void Enemy::drawEnemy(RenderWindow & window)
 {
+	sprite.setPosition(box.pos);
 	window.draw(sprite);
 }
 

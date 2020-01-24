@@ -1,13 +1,25 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 using namespace sf;
+
+enum class type {
+	block,
+	enemy,
+	player
+};
+
 class BoundingBox {
 public:
-	void updateBox(bool right, bool left, int amount);
+	BoundingBox() = default;
+	BoundingBox(int x, int y, int size);
+	void updateBox(int amount);
+	void updateBox(int amount, bool &touchingGround, int vel);
 	void setBox(int width, int height);
 	void setPosition(int x, int y);
 	int checkCollision(BoundingBox box);
 	Vector2f pos;
 	int width, height;
+	type type = type::block;
 };

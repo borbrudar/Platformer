@@ -1,17 +1,9 @@
 #include "Block.h"
 
-Block::Block(int x, int y, int size)
+void Block::updateBlock(int amount)
 {
-	box.setPosition(x * size, y * size);
-	box.setBox(size, size);
-}
-
-void Block::updateBlock(bool right, bool left, int amount)
-{
-	if (right) sprite.move(Vector2f(amount, 0));
-	else if (left) sprite.move(Vector2f(-amount, 0));
-
-	box.updateBox(right, left, amount);
+	sprite.move(Vector2f(amount, 0));
+	
 }
 
 void Block::loadBlock(Texture & t)

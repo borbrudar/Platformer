@@ -11,8 +11,9 @@ int Player::updatePlayer(std::vector<BoundingBox> boxes, bool jumped)
 			break;
 		}
 	}
-	if (box.pos.y > 579) touchingGround = true;
 	
+	if (box.pos.y > 579) touchingGround = true;
+
 	if (!touchingGround) vel += acc;
 	else vel = 0; 
 	if (touchingGround && jumped) vel = -jumpVel;

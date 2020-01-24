@@ -1,9 +1,22 @@
 #include "BoundingBox.h"
 
-void BoundingBox::updateBox(bool right, bool left, int amount)
+BoundingBox::BoundingBox(int x, int y, int size)
 {
-	if (right) pos.x += amount;
-	else if (left) pos.x += -amount;
+	setPosition(x * size, y * size);
+	setBox(size, size);
+}
+
+void BoundingBox::updateBox(int amount)
+{
+	pos.x += amount;
+}
+
+void BoundingBox::updateBox(int amount, bool &touchingGround, int vel)
+{
+	if (pos.y > 579) touchingGround = true;
+
+	pos.y += vel;
+	if (pos.y > (600 - height)) pos.y = 600 - height;
 }
 
 void BoundingBox::setBox(int width, int height)
