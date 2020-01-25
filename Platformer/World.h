@@ -17,14 +17,14 @@ public:
 	void drawWorld(sf::RenderWindow &window);
 private:
 	void loadWorld();
-	void addBlock(int x, int y);
-	void addPlayer(int x, int y);
-	void addEnemy(int x, int y);
+	void addBlock(int x, int y, int &id);
+	void addEnemy(int x, int y, int &id);
 //variables	
 	Player player;
 	std::vector<Block> blocks;
 	std::vector<BoundingBox> boxes;
 	std::vector<Enemy> enemies;
+	BoundingBox playerBox;
 	UTexture tex;
 	int amount = 1.5;
 	sf::Image level;

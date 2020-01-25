@@ -8,16 +8,35 @@ BoundingBox::BoundingBox(int x, int y, int size)
 
 void BoundingBox::updateBox(int amount)
 {
-	pos.x += amount;
+		pos.x += amount;
 }
 
-void BoundingBox::updateBox(int amount, bool &touchingGround, int vel)
+void BoundingBox::updateBox(int amount, std::vector<BoundingBox> boxes)
 {
+	touchingGround = 0;
+	int type;
+	for (int i = 0; i < boxes.size(); i++) {
+		if (i != id) {
+			if (type = boxes[id].checkCollision(boxes[i])) {
+				if (type == 4) boxes[id].pos.y -= boxes[id].pos.y - boxes[i].pos.y + boxes[i].width;
+				touchingGround = 1;
+				break;
+			}
+		}
+	}
+
+	pos.x += amount;
+	pos.x -= 0.3f;
+
 	if (pos.y > 579) touchingGround = true;
+
+	if (!touchingGround) vel += acc;
+	else vel = 0;
 
 	pos.y += vel;
 	if (pos.y > (600 - height)) pos.y = 600 - height;
 }
+
 
 void BoundingBox::setBox(int width, int height)
 {
@@ -43,7 +62,7 @@ int BoundingBox::checkCollision(BoundingBox box)
 			else col = 3;
 		}
 		else {
-			pos.y -= pos.y - box.pos.y + width;
+			col = 4;
 		}
 	}
 	

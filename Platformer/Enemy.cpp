@@ -1,24 +1,12 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int x, int y, int size)
+void Enemy::updateEnemy(Vector2f pos)
 {
-	box.setPosition(x * size, y * size);
-	box.setBox(size, size);
-}
-
-void Enemy::updateEnemy(int amount)
-{
-	if (right) sprite.move(Vector2f(amount,0));
-	else if (left) sprite.move(Vector2f(-amount, 0));
-
-	box.pos.x -= 0.3f;
-
-	box.updateBox(right, left, amount);
+	sprite.setPosition(pos);
 }
 
 void Enemy::drawEnemy(RenderWindow & window)
 {
-	sprite.setPosition(box.pos);
 	window.draw(sprite);
 }
 

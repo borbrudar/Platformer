@@ -1,8 +1,8 @@
 #include "Block.h"
 
-void Block::updateBlock(int amount)
+void Block::updateBlock(Vector2f pos)
 {
-	sprite.move(Vector2f(amount, 0));
+	sprite.setPosition(pos);
 	
 }
 

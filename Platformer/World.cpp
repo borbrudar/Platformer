@@ -2,21 +2,23 @@
 
 void World::loadWorld()
 {
+	int id = 0;
 	for (int x = 0; x < level.getSize().x; x++) {
 		for (int y = 0; y < level.getSize().y; y++) {
 			if (level.getPixel(x, y) == Color(255, 0, 0)) {
-				addBlock(x, y);
+				addBlock(x, y,id);
 				blocks[blocks.size() - 1].type = block_type::stone;
 			}
 			if (level.getPixel(x, y) == Color(0, 255, 0)) {
-				addBlock(x, y);
+				addBlock(x, y, id);
 				blocks[blocks.size() - 1].type = block_type::dirt;
 			}
 			if (level.getPixel(x, y) == Color(0, 0, 0)) {
-				addPlayer(x, y);
+				playerBox.setBox(size, size);
+				playerBox.setPosition(x * size, y * size);
 			}
 			if (level.getPixel(x, y) == Color(0, 0, 255)) {
-				//addEnemy(x, y);
+				addEnemy(x, y, id);
 			}
 		}
 	}
@@ -29,25 +31,26 @@ void World::loadWorld()
 	}
 }
 
-void World::addBlock(int x, int y)
+void World::addBlock(int x, int y, int &id)
 {
 	blocks.push_back(Block());
 	blocks[blocks.size() - 1].setPosition(x * size, y * size);
 	boxes.push_back(BoundingBox(x, y, size));
 	boxes[boxes.size() - 1].type = type::block;
+	blocks[blocks.size() - 1].id = id;
+	boxes[boxes.size() - 1].id = id;
+	id++;
 }
 
-void World::addPlayer(int x, int y)
+void World::addEnemy(int x, int y, int &id)
 {
-	player.box.setPosition(x * size, y * size);
-	player.box.setBox(size, size);
-	player.box.type = type::player;
-}
-
-void World::addEnemy(int x, int y)
-{
-	enemies.push_back(Enemy(x,y,size));
+	enemies.push_back(Enemy());
 	enemies[enemies.size() - 1].setPosition(x * size, y * size);
+	boxes.push_back(BoundingBox(x, y, size));
+	boxes[boxes.size() - 1].type = type::enemy;
+	enemies[enemies.size() - 1].id = id;
+	boxes[boxes.size() - 1].id = id;
+	id++;
 }
 
 void World::updateWorld(bool right, bool left, bool up)
@@ -61,14 +64,16 @@ void World::updateWorld(bool right, bool left, bool up)
 	if (type == 2 && right) amount = 1.5f;
 	if (type == 3 && left) amount = -1.5f;
 
-	//update blocks
-	for (int i = 0; i < blocks.size(); i++) blocks[i].updateBlock(amount);
-	//for (int i = 0; i < enemies.size(); i++) enemies[i].updateEnemy(right, left, amount);
+
 
 	for (int i = 0; i < boxes.size(); i++) {
-		if (boxes[i].type == type::block) boxes[i].updateBox(amount);
-		if (boxes[i].type == type::enemy) boxes[i].updateBox(amount, enemies[0].speed);
+		if(boxes[i].type == type::block) boxes[i].updateBox(amount);
+		if (boxes[i].type == type::enemy) boxes[i].updateBox(amount, boxes);
 	}
+
+	//update blocks
+	for (int i = 0; i < blocks.size(); i++) blocks[i].updateBlock(boxes[blocks[i].id].pos);
+	for (int i = 0; i < enemies.size(); i++) enemies[i].updateEnemy(boxes[enemies[i].id].pos);
 }
 
 void World::drawWorld(sf::RenderWindow & window)
