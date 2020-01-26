@@ -26,9 +26,8 @@ void World::loadWorld()
 	for (int i = 0; i < blocks.size(); i++) {
 		blocks[i].loadBlock(tex.texture[(int)blocks[i].type]);
 	}
-	for (int i = 0; i < enemies.size(); i++) {
-		enemies[i].loadEnemy(tex.texture[2]);
-	}
+	for (int i = 0; i < enemies.size(); i++) enemies[i].loadEnemy(tex.texture[2]);
+
 }
 
 void World::addBlock(int x, int y, int &id)

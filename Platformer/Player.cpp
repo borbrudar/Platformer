@@ -7,8 +7,14 @@ int Player::updatePlayer(std::vector<BoundingBox> boxes, bool jumped)
 
 	for (int i = 0; i < boxes.size(); i++) {
 		if (type = box.checkCollision(boxes[i])) {
-			if (type == 4) box.pos.y -= box.pos.y - boxes[i].pos.y + boxes[i].width;
-			touchingGround = 1;
+			if (type == 2) {
+				box.pos.y -= box.pos.y - boxes[i].pos.y + boxes[i].width;
+				touchingGround = 1;
+			}
+			else { 
+				box.pos.y += box.pos.y - boxes[i].pos.y; 
+				vel = 0;
+			}
 			break;
 		}
 	}
