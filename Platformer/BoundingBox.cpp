@@ -19,7 +19,7 @@ void BoundingBox::updateBox(int amount, std::vector<BoundingBox> boxes)
 		if (i != id) {
 			if (type = boxes[id].checkCollision(boxes[i])) {
 				pos.y -= pos.y - boxes[i].pos.y + boxes[i].width;
-				if (type == 2) touchingGround = 1;
+				if (type == 1) touchingGround = 1;
 				break;
 			}
 		}
@@ -58,10 +58,10 @@ int BoundingBox::checkCollision(BoundingBox box)
 	//update position (move later)
 	if (col) {
 		if (pos.y <= box.pos.y) {
-			col = 2;
+			col = 1;
 		}
 		else { 
-			col = 4;
+			col = 2;
 		}
 	}
 	return col;

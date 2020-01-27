@@ -7,14 +7,16 @@ int Player::updatePlayer(std::vector<BoundingBox> boxes, bool jumped)
 
 	for (int i = 0; i < boxes.size(); i++) {
 		if (type = box.checkCollision(boxes[i])) {
-			if (type == 2) {
+			if (boxes[i].type == type::enemy) {
+				shape.setFillColor(Color::Red);
+				break;
+			}
+			else shape.setFillColor(Color::Blue);
+			if (type == 1) {
 				box.pos.y -= box.pos.y - boxes[i].pos.y + boxes[i].width;
 				touchingGround = 1;
 			}
-			else { 
-				box.pos.y += box.pos.y - boxes[i].pos.y; 
-				vel = 0;
-			}
+			else if (type == 2) vel = acc;
 			break;
 		}
 	}
