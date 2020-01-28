@@ -13,7 +13,7 @@ void Enemy::drawEnemy(RenderWindow & window)
 void Enemy::loadEnemy(Texture & t)
 {
 	sprite.setTexture(t);
-	sprite.setScale(0.25, 0.25);
+	sprite.setScale(0.5, 0.5);
 }
 
 void Enemy::setPosition(int x, int y)

@@ -13,10 +13,7 @@ void World::loadWorld()
 				addBlock(x, y, id);
 				blocks[blocks.size() - 1].type = block_type::dirt;
 			}
-			if (level.getPixel(x, y) == Color(0, 0, 0)) {
-				playerBox.setBox(size, size);
-				playerBox.setPosition(x * size, y * size);
-			}
+			if (level.getPixel(x, y) == Color(0, 0, 0)) player.box.setPosition(x * size, y * size);
 			if (level.getPixel(x, y) == Color(0, 0, 255)) {
 				addEnemy(x, y, id);
 			}

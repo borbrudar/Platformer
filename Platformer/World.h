@@ -24,9 +24,8 @@ private:
 	std::vector<Block> blocks;
 	std::vector<BoundingBox> boxes;
 	std::vector<Enemy> enemies;
-	BoundingBox playerBox;
 	UTexture tex;
 	int amount = 1.5;
 	sf::Image level;
-	int size = 20;
+	int size = 40;
 };

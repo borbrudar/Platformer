@@ -9,7 +9,7 @@ void Block::updateBlock(Vector2f pos)
 void Block::loadBlock(Texture & t)
 { 
 	sprite.setTexture(t);
-	sprite.setScale(0.25, 0.25);
+	sprite.setScale(0.5, 0.5);
 }
 
 void Block::setPosition(int x, int y)

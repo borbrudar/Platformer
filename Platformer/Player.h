@@ -1,22 +1,34 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Animation.h"
 #include "BoundingBox.h"
+#include "UTexture.h"
+
+#include <string>
+#include <vector>
+
 
 using namespace sf;
 class Player {
 public:
 	Player() {
-		shape.setSize(Vector2f(size, size));
-		shape.setFillColor(Color(0, 0, 255));
+		std::vector<std::string> string;
+		string.push_back("textures/sprite1.png");
+		string.push_back("textures/sprite2.png");
+		string.push_back("textures/sprite3.png");
+		ani.loadAnimaton(string);
 
-		box.setPosition(60, 500);
+		sprite.setTexture(ani.textures[0]);
+		sprite.setScale(2,2);
+
 		box.setBox(size, size);
 	}
 	int updatePlayer(std::vector<BoundingBox> boxes, bool jumped);
 	void drawPlayer(RenderWindow &window);
-	RectangleShape shape;
-	int size = 20;
+	Animation ani;
+	Sprite sprite;
+	int size = 40;
 	BoundingBox box;
 	bool touchingGround = 0;
-	float vel = 0, acc = .03f, jumpVel = 2.5f;
+	float vel = 0, acc = .03f, jumpVel = 3.1f;
 };
