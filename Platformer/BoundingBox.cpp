@@ -8,7 +8,7 @@ BoundingBox::BoundingBox(int x, int y, int size)
 
 void BoundingBox::updateBox(int amount)
 {
-		pos.x += amount;
+	pos.x += amount;
 }
 
 void BoundingBox::updateBox(int amount, std::vector<BoundingBox> boxes)
@@ -28,7 +28,7 @@ void BoundingBox::updateBox(int amount, std::vector<BoundingBox> boxes)
 	pos.x += amount;
 	pos.x -= 0.3f;
 
-	if (pos.y > 579) touchingGround = true;
+	if (pos.y > (600 - height - 1)) touchingGround = true;
 
 	if (!touchingGround) vel += acc;
 	else vel = 0;

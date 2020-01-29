@@ -31,4 +31,5 @@ public:
 	BoundingBox box;
 	bool touchingGround = 0;
 	float vel = 0, acc = .03f, jumpVel = 3.1f;
+	unsigned int id;
 };

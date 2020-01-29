@@ -7,7 +7,7 @@ using namespace sf;
 enum class type {
 	block,
 	enemy,
-	player
+	item
 };
 
 class BoundingBox {

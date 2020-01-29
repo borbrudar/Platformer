@@ -7,6 +7,7 @@ int Player::updatePlayer(std::vector<BoundingBox> boxes, bool jumped)
 
 	for (int i = 0; i < boxes.size(); i++) {
 		if (type = box.checkCollision(boxes[i])) {
+			
 			/*if (boxes[i].type == type::enemy) {
 				shape.setFillColor(Color::Red);
 				break;
@@ -22,7 +23,7 @@ int Player::updatePlayer(std::vector<BoundingBox> boxes, bool jumped)
 		}
 	}
 	
-	if (box.pos.y > 579) touchingGround = true;
+	if (box.pos.y > (600 - size - 1)) touchingGround = true;
 
 	if (!touchingGround) {
 		vel += acc;
