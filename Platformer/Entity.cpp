@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-void Entity::loadEntity(Texture & t, int x, int y)
+void Entity::loadEntity(Texture & t, float x, float y)
 {
 	sprite.setTexture(t);
 	sprite.setScale(x, y);

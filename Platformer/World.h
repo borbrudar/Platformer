@@ -19,16 +19,10 @@ public:
 	void drawWorld(sf::RenderWindow &window);
 private:
 	void loadWorld();
-	void addBlock(int x, int y, int &id);
-	void addEnemy(int x, int y, int &id);
-	void addItem(int x, int y, int &id);
-	void addEntity(int x, int y, int &id);
+	void addEntity(int x, int y, int &id, entity_type type1);
 //variables	
 	Player player;
-	std::vector<Block> blocks;
 	std::vector<BoundingBox> boxes;
-	std::vector<Enemy> enemies;
-	std::vector<Item> items;
 	std::vector<Entity> entities;
 	UTexture tex;
 	int amount = 1.5;

@@ -6,65 +6,45 @@ void World::loadWorld()
 	for (int x = 0; x < level.getSize().x; x++) {
 		for (int y = 0; y < level.getSize().y; y++) {
 			if (level.getPixel(x, y) == Color(255, 0, 0)) {
-				addBlock(x, y,id);
-				blocks[blocks.size() - 1].type = block_type::stone;
+				addEntity(x, y, id, entity_type::block);
+				entities[entities.size() - 1].blockType = block_type::stone;
 			}
 			if (level.getPixel(x, y) == Color(0, 255, 0)) {
-				addBlock(x, y, id);
-				blocks[blocks.size() - 1].type = block_type::dirt;
+				addEntity(x, y, id, entity_type::block);
+				entities[entities.size() - 1].blockType = block_type::dirt;
 			}
 			if (level.getPixel(x, y) == Color(0, 0, 0)) {
-				player.sprite.setPosition(x * size, y * size);
-				boxes.push_back(BoundingBox(x, y, size));
-				boxes[boxes.size() - 1].type = type::player;
-				boxes[boxes.size() - 1].id = id;
 				playerID = id;
-				id++;
+				addEntity(x, y, id, entity_type::player);
+				player.sprite.setPosition(x * size, y * size);
 			}
-			if (level.getPixel(x, y) == Color(0, 0, 255)) addEnemy(x, y, id);
-			if (level.getPixel(x, y) == Color(255, 0, 255)) addItem(x, y, id);
+			if (level.getPixel(x, y) == Color(0, 0, 255)) addEntity(x, y, id, entity_type::enemy);
+			if (level.getPixel(x, y) == Color(255, 0, 255)) addEntity(x, y, id, entity_type::item);
 		}
 	}
 
-	for (int i = 0; i < blocks.size(); i++) {
-		blocks[i].loadBlock(tex.texture[(int)blocks[i].type]);
+	for (int i = 0; i < entities.size(); i++) {
+		if (entities[i].type == entity_type::block) {
+			if (entities[i].blockType == block_type::stone) entities[i].loadEntity(tex.texture[0], 0.5, 0.5);
+			if (entities[i].blockType == block_type::dirt) entities[i].loadEntity(tex.texture[1], 0.5, 0.5);
+		}
+		if (entities[i].type == entity_type::enemy)  entities[i].loadEntity(tex.texture[2], 0.5, 0.5);
+		if (entities[i].type == entity_type::item)  entities[i].loadEntity(tex.texture[3]);
 	}
-	for (int i = 0; i < enemies.size(); i++) enemies[i].loadEnemy(tex.texture[2]);
-	for (int i = 0; i < items.size(); i++) items[i].loadItem(tex.texture[3]);
 }
 
-void World::addBlock(int x, int y, int &id)
+
+void World::addEntity(int x, int y, int &id, entity_type type1)
 {
-	blocks.push_back(Block());
-	blocks[blocks.size() - 1].setPosition(x * size, y * size);
+	entities.push_back(Entity(type1));
+	entities[entities.size() - 1].updateEntity(Vector2f(x * size, y * size));
+	entities[entities.size() - 1].id = id;
 	boxes.push_back(BoundingBox(x, y, size));
-	boxes[boxes.size() - 1].type = type::block;
-	blocks[blocks.size() - 1].id = id;
+	boxes[boxes.size() - 1].type = (type)type1;
 	boxes[boxes.size() - 1].id = id;
 	id++;
 }
 
-void World::addEnemy(int x, int y, int &id)
-{
-	enemies.push_back(Enemy());
-	enemies[enemies.size() - 1].setPosition(x * size, y * size);
-	boxes.push_back(BoundingBox(x, y, size));
-	boxes[boxes.size() - 1].type = type::enemy;
-	enemies[enemies.size() - 1].id = id;
-	boxes[boxes.size() - 1].id = id;
-	id++;
-}
-
-void World::addItem(int x, int y, int &id)
-{
-	items.push_back(Item());
-	items[items.size() - 1].setPosition(x * size, y * size);
-	boxes.push_back(BoundingBox(x, y, size));
-	boxes[boxes.size() - 1].type = type::item;
-	items[items.size() - 1].id = id;
-	boxes[boxes.size() - 1].id = id;
-	id++;
-}
 
 void World::updateWorld(bool right, bool left, bool up)
 {
@@ -86,20 +66,12 @@ void World::updateWorld(bool right, bool left, bool up)
 	}
 
 	//update blocks
-	player.updatePlayer(boxes[playerID].pos);
 	for (int i = 0; i < entities.size(); i++) entities[i].updateEntity(boxes[entities[i].id].pos);
-	//for (int i = 0; i < blocks.size(); i++) blocks[i].updateBlock(boxes[blocks[i].id].pos);
-	//for (int i = 0; i < enemies.size(); i++) enemies[i].updateEnemy(boxes[enemies[i].id].pos);
-	//for (int i = 0; i < items.size(); i++) items[i].updateItem(boxes[items[i].id].pos);
-	
+	player.updatePlayer(boxes[playerID].pos);	
 }
 
 void World::drawWorld(sf::RenderWindow & window)
 {
 	for (int i = 0; i < entities.size(); i++) entities[i].drawEntity(window);
-	
-	//for(int i = 0; i < blocks.size();i++) blocks[i].drawBlock(window);
-	//for (int i = 0; i < enemies.size(); i++) enemies[i].drawEnemy(window);
-	//for (int i = 0; i < items.size(); i++) items[i].drawItem(window);
 	player.drawPlayer(window);
 }
