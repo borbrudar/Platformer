@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Entity.h"
 #include <vector>
 
 class World {
@@ -21,14 +22,17 @@ private:
 	void addBlock(int x, int y, int &id);
 	void addEnemy(int x, int y, int &id);
 	void addItem(int x, int y, int &id);
+	void addEntity(int x, int y, int &id);
 //variables	
 	Player player;
 	std::vector<Block> blocks;
 	std::vector<BoundingBox> boxes;
 	std::vector<Enemy> enemies;
 	std::vector<Item> items;
+	std::vector<Entity> entities;
 	UTexture tex;
 	int amount = 1.5;
 	sf::Image level;
 	int size = 40;
+	unsigned int playerID;
 };

@@ -37,6 +37,50 @@ void BoundingBox::updateBox(int amount, std::vector<BoundingBox> boxes)
 	if (pos.y > (600 - height)) pos.y = 600 - height;
 }
 
+int BoundingBox::updateBox(std::vector<BoundingBox> boxes, Sprite &sprite, Animation &ani)
+{
+	touchingGround = 0;
+	int type = 0;
+
+	for (int i = 0; i < boxes.size(); i++) {
+		if (boxes[i].id != id) {
+			if (type = checkCollision(boxes[i])) {
+				/*if (boxes[i].type == type::enemy) {
+					shape.setFillColor(Color::Red);
+					break;
+				}
+				else shape.setFillColor(Color::Blue);*/
+				if (type == 1) {
+					pos.y -= pos.y - boxes[i].pos.y + boxes[i].width;
+					touchingGround = 1;
+					sprite.setTexture(ani.textures[0]);
+				}
+				else if (type == 2) vel = acc;
+				break;
+			}
+		}
+	}
+
+	if (pos.y > (600 - height - 1)) touchingGround = true;
+
+	if (!touchingGround) {
+		vel += acc;
+		sprite.setTexture(ani.textures[2]);
+	}
+	else vel = 0;
+
+	if (touchingGround && jumped) {
+		vel = -jumpVel;
+		sprite.setTexture(ani.textures[1]);
+	}
+	if (!jumped) sprite.setTexture(ani.textures[0]);
+
+	pos.y += vel;
+	if (pos.y > (600 - height)) pos.y = 600 - height;
+
+	return type;
+}
+
 
 void BoundingBox::setBox(int width, int height)
 {

@@ -21,15 +21,11 @@ public:
 		sprite.setTexture(ani.textures[0]);
 		sprite.setScale(2,2);
 
-		box.setBox(size, size);
 	}
-	int updatePlayer(std::vector<BoundingBox> boxes, bool jumped);
+	void updatePlayer(Vector2f pos);
 	void drawPlayer(RenderWindow &window);
 	Animation ani;
 	Sprite sprite;
 	int size = 40;
-	BoundingBox box;
-	bool touchingGround = 0;
-	float vel = 0, acc = .03f, jumpVel = 3.1f;
 	unsigned int id;
 };
